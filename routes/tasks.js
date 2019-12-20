@@ -64,6 +64,8 @@ router.post("/", auth, async (req, res, next) => {
 });
 
 router.patch("/:id", auth, async (req, res, next) => {
+  console.log("1");
+
   const alllowedUpdates = ["discription", "completed"];
   const updates = Object.keys(req.body);
   const isvalidOrNot = updates.every(update =>
@@ -89,6 +91,9 @@ router.patch("/:id", auth, async (req, res, next) => {
 });
 
 router.delete("/:id", auth, async (req, res, next) => {
+  console.log(req.params.id);
+  console.log(req.user._id);
+
   try {
     const data = await Task.findOneAndDelete({
       _id: req.params.id,

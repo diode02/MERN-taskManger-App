@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema(
       minlength: 7,
       validate(value) {
         if (value.toLowerCase().includes("password")) {
-          throw new Error("Password can not contain  'passowrd'");
+          throw new Error("Password can not contain 'passowrd'");
         }
       }
     },
@@ -71,7 +71,7 @@ userSchema.methods.toJSON = function() {
   const userObject = this.toObject();
   delete userObject.password;
   delete userObject.tokens;
-  delete userObject.avatar;
+  // delete userObject.avatar;
   return userObject;
 };
 

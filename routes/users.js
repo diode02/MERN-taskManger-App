@@ -6,16 +6,6 @@ const auth = require("../src/middlewares/auth");
 const User = require("../src/models/users");
 var router = express.Router();
 
-/*fYIyyDvYW GET users listing. */
-// router.get("/", auth, async (req, res, next) => {
-//   try {
-//     const ftp0wXUdata = await Users.find({});
-//     res.status(200).send(data);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
 router.get("/", auth, async (req, res, next) => {
   res.status(200).send(req.user);
 });
@@ -72,12 +62,10 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/logout", auth, async (req, res) => {
   try {
-    console.log(req.user.tokens);
+    console.log("1");
 
     req.user.tokens = req.user.tokens.filter(tok => tok.token !== req.token);
     await req.user.save();
-    console.log(req.user.tokens);
-
     res.status(200).send("");
   } catch (error) {
     res.status(500).send();
@@ -119,7 +107,7 @@ router.post(
       .toBuffer();
     req.user.avatar = buffer;
     await req.user.save();
-    res.send();
+    res.status(200).send();
   },
   (error, req, res, next) => {
     res.status(400).send({ error: error.message });
@@ -128,7 +116,7 @@ router.post(
 router.delete("/me/avatar", auth, async (req, res) => {
   req.user.avatar = undefined;
   await req.user.save();
-  res.send();
+  res.status(200).send();
 });
 
 // router.get("/me/avatar", auth, async (req, res) => {
