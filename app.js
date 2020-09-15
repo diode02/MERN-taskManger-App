@@ -4,51 +4,44 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./routes/index");
+require("./src/mongo/mongod");
+
 var usersRouter = require("./routes/users");
-var tasksRouter = require("./routes/tasks");
+
+// var cors = require("cors");
 
 var app = express();
+// app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
+app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 
-app.options("/*", function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,OPTIONS,PATCH"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.sendStatus(200);
-});
+// app.use(express.static(path.join(__dirname, "public")));
 
-app.all("*", function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
-app.use("/", indexRouter);
+// app.use("/collections", collectionsRouter);
 app.use("/users", usersRouter);
-app.use("/tasks", tasksRouter);
+// app.use("/items", itemsRouter);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+}
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

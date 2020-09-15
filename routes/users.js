@@ -17,14 +17,14 @@ router.post("/", async (req, res, next) => {
     const token = await user.generateAuthToken();
     res.status(201).send({ data, token });
   } catch (error) {
-    res.status(401).send(error + "");
+    res.status(401).send({ error });
   }
 });
 
 router.patch("/me", auth, async (req, res, next) => {
   const alllowedUpdates = ["name", "email", "age", "password"];
   const updates = Object.keys(req.body);
-  const isvalidOrNot = updates.every(update =>
+  const isvalidOrNot = updates.every((update) =>
     alllowedUpdates.includes(update)
   );
 
@@ -33,7 +33,7 @@ router.patch("/me", auth, async (req, res, next) => {
 
   try {
     //to force updating to follow our schema and not bypass our middleware we find and then change it here and then pass it from middele ware
-    updates.forEach(update => (req.user[update] = req.body[update]));
+    updates.forEach((update) => (req.user[update] = req.body[update]));
     req.user = await req.user.save();
     res.send(req.user);
   } catch (error) {
@@ -64,7 +64,7 @@ router.post("/logout", auth, async (req, res) => {
   try {
     console.log("1");
 
-    req.user.tokens = req.user.tokens.filter(tok => tok.token !== req.token);
+    req.user.tokens = req.user.tokens.filter((tok) => tok.token !== req.token);
     await req.user.save();
     res.status(200).send("");
   } catch (error) {
@@ -83,7 +83,7 @@ router.post("/logoutAll", auth, async (req, res) => {
 });
 const upload = multer({
   limits: {
-    fileSize: 1000000
+    fileSize: 1000000,
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/))
@@ -91,7 +91,7 @@ const upload = multer({
         new Error("Please upload jpg or jpeg or png file formate only")
       );
     cb(undefined, true);
-  }
+  },
 });
 router.post(
   "/me/avatar",
@@ -101,7 +101,7 @@ router.post(
     const buffer = await sharp(req.file.buffer)
       .resize({
         width: 250,
-        height: 250
+        height: 250,
       })
       .png()
       .toBuffer();
