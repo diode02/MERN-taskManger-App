@@ -1,17 +1,19 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./components/header/header-com";
+import DashBoard from "./pages/dashboard/dashboard-com";
+import SignInSignUp from "./pages/sign-in-sign-up/sign-in-sign-up.com";
 
-import HomePage from "./pages/homepage/homepage-com";
-import SignUp from "./pages/signUp/signup-com";
+import TaskRedirectPage from "./pages/taskRedirectPage/taskRedirectPage-com";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/" component={TaskRedirectPage} />
+        <Route exact path="/dashboard" component={DashBoard} />
+        <Route exact path="/login" component={SignInSignUp} />
       </Switch>
     </div>
   );

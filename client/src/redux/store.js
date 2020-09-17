@@ -3,6 +3,7 @@ import logger from "redux-logger";
 import createSagaMiddleWare from "redux-saga";
 import rootSagas from "./root.sagas";
 import rootReducer from "./root.reducer";
+import { persistStore } from "redux-persist";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,5 +16,6 @@ export const store = createStore(
 );
 
 sagaMiddleWare.run(rootSagas);
+export const persistor = persistStore(store);
 
-export default { store };
+export default { store, persistor };

@@ -7,6 +7,7 @@ var logger = require("morgan");
 require("./src/mongo/mongod");
 
 var usersRouter = require("./routes/users");
+var tasksRouter = require("./routes/tasks");
 
 // var cors = require("cors");
 
@@ -26,7 +27,7 @@ app.use(cookieParser());
 
 // app.use("/collections", collectionsRouter);
 app.use("/users", usersRouter);
-// app.use("/items", itemsRouter);
+app.use("/tasks", tasksRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));

@@ -6,6 +6,10 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get("/", auth, async (req, res, next) => {
+  console.log("heee");
+
+  for (let index = 0; index < 99999999; index++) {}
+
   const match = {};
   const sort = {};
 
@@ -27,8 +31,8 @@ router.get("/", auth, async (req, res, next) => {
         options: {
           limit: parseInt(req.query.limit),
           skip: parseInt(req.query.skip),
-          sort
-        }
+          sort,
+        },
       })
       .execPopulate();
     res.status(200).send(req.user.tasks);
@@ -41,7 +45,7 @@ router.get("/:id", auth, async (req, res, next) => {
   try {
     const data = await Task.findOne({
       _id: req.params.id,
-      owner: req.user._id
+      owner: req.user._id,
     });
     if (!data) return res.status(404).send();
     res.status(200).send(data);
@@ -53,7 +57,7 @@ router.get("/:id", auth, async (req, res, next) => {
 router.post("/", auth, async (req, res, next) => {
   const task = new Task({
     ...req.body,
-    owner: req.user._id
+    owner: req.user._id,
   });
   try {
     const data = await task.save();
@@ -64,11 +68,9 @@ router.post("/", auth, async (req, res, next) => {
 });
 
 router.patch("/:id", auth, async (req, res, next) => {
-  console.log("1");
-
-  const alllowedUpdates = ["discription", "completed"];
+  const alllowedUpdates = ["description", "completed"];
   const updates = Object.keys(req.body);
-  const isvalidOrNot = updates.every(update =>
+  const isvalidOrNot = updates.every((update) =>
     alllowedUpdates.includes(update)
   );
 
@@ -78,11 +80,11 @@ router.patch("/:id", auth, async (req, res, next) => {
   try {
     const task = await Task.findOne({
       _id: req.params.id,
-      owner: req.user._id
+      owner: req.user._id,
     });
     if (!task) return res.status(404).send();
 
-    updates.forEach(update => (task[update] = req.body[update]));
+    updates.forEach((update) => (task[update] = req.body[update]));
     await task.save();
     res.send(task);
   } catch (error) {
@@ -91,13 +93,10 @@ router.patch("/:id", auth, async (req, res, next) => {
 });
 
 router.delete("/:id", auth, async (req, res, next) => {
-  console.log(req.params.id);
-  console.log(req.user._id);
-
   try {
     const data = await Task.findOneAndDelete({
       _id: req.params.id,
-      owner: req.user._id
+      owner: req.user._id,
     });
     if (!data) return res.status(404).send();
     res.status(200).send(data);
