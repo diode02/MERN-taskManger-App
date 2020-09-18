@@ -28,6 +28,10 @@ const NewTask = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(postTaskStart({ task, token: currentUser.token }));
+    settask({
+      description: "",
+      completed: false,
+    });
   };
 
   return (

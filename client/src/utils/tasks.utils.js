@@ -6,10 +6,29 @@ export const getUpdatedArray = (old, newItem) => {
 };
 
 export const getUpdatedArrayAfterDelete = (old, deleted) => {
-  old.filter((task) => task._id !== deleted._id);
+  return old.filter((task) => task._id !== deleted._id);
 };
 
-export async function deleteTaskAPI() {}
+export async function deleteTaskAPI({ taskID, token }) {
+  const data = await axios
+    .delete("/tasks/" + taskID, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(
+      (response) => {
+        console.log(response);
+        return response;
+      },
+      (error) => {
+        var status = error.response.status;
+        console.log(status);
+        return error;
+      }
+    );
+  return data;
+}
 
 export async function getTasksAPI(token) {
   const data = await axios
@@ -41,5 +60,25 @@ export async function postTaskAPI(payload) {
     .then((response) => {
       return response;
     })
-    .catch((error) => {});
+    .catch((error) => {
+      return error;
+    });
+}
+
+export async function updateTaskAPI({ task, token }) {
+  var bodyParameters = {
+    description: task.description,
+    completed: task.completed,
+  };
+  var config = {
+    headers: { Authorization: token },
+  };
+  return await axios
+    .patch(/tasks/ + task._id, bodyParameters, config)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      throw error;
+    });
 }

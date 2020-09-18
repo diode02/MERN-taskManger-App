@@ -36,13 +36,11 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
           state.currentUserTasks,
           action.payload
         ),
-        isFetching: false,
         errorMessage: undefined,
       };
     case TasksActionTypes.POST_TASKS_FAILURE:
       return {
         ...state,
-        isFetching: false,
         errorMessage: action.payload,
       };
 
@@ -53,13 +51,21 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
           state.currentUserTasks,
           action.payload
         ),
-        isFetching: false,
         errorMessage: undefined,
       };
     case TasksActionTypes.DELETE_TASKS_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        errorMessage: action.payload,
+      };
+
+    case TasksActionTypes.UPDATE_TASK_SUCESS:
+      return {
+        ...state,
+      };
+    case TasksActionTypes.UPDATE_TASKS_FAILURE:
+      return {
+        ...state,
         errorMessage: action.payload,
       };
 

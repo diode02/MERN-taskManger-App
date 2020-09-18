@@ -6,10 +6,6 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get("/", auth, async (req, res, next) => {
-  console.log("heee");
-
-  for (let index = 0; index < 99999999; index++) {}
-
   const match = {};
   const sort = {};
 

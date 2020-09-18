@@ -30,9 +30,9 @@ export const postTaskFailure = (errorMessage) => ({
   payload: errorMessage,
 });
 
-export const deleteTaskStart = (taskToken) => ({
+export const deleteTaskStart = (taskIDToken) => ({
   type: TasksActionTypes.DELETE_TASK_START,
-  payload: taskToken,
+  payload: taskIDToken,
 });
 
 export const deleteTaskSuccess = (task) => ({
@@ -42,5 +42,20 @@ export const deleteTaskSuccess = (task) => ({
 
 export const deleteTaskFailure = (errorMessage) => ({
   type: TasksActionTypes.DELETE_TASK_FAILURE,
+  payload: errorMessage,
+});
+
+export const updateTaskStart = (taskToken) => ({
+  type: TasksActionTypes.UPDATE_TASK_START,
+  payload: taskToken,
+});
+
+export const updateTaskSuccess = (task) => ({
+  type: TasksActionTypes.UPDATE_TASK_SUCESS,
+  payload: task,
+});
+
+export const updateTaskFailure = (errorMessage) => ({
+  type: TasksActionTypes.UPDATE_TASK_FAILURE,
   payload: errorMessage,
 });
