@@ -19,19 +19,51 @@ const Header = () => {
       </LogoContainer>
       <OptionsContainer>
         {currentUser ? (
-          <OptionLinkContainer to="/dashboard">ACCOUNT</OptionLinkContainer>
+          <OptionLinkContainer
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            to="/dashboard"
+          >
+            ACCOUNT
+          </OptionLinkContainer>
         ) : (
-          <OptionLinkContainer to="/login">LOGIN</OptionLinkContainer>
+          <OptionLinkContainer
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            to="/login"
+          >
+            LOGIN
+          </OptionLinkContainer>
         )}
         {currentUser ? (
           <OptionLinkContainer
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+            }}
             to="/"
             onClick={() => dispatch(signOutStart(currentUser.token))}
           >
             SIGNOUT
           </OptionLinkContainer>
         ) : (
-          <OptionLinkContainer to="/login">SIGNUP</OptionLinkContainer>
+          <OptionLinkContainer
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            to="/login"
+          >
+            SIGNUP
+          </OptionLinkContainer>
         )}
       </OptionsContainer>
     </HeaderContainer>

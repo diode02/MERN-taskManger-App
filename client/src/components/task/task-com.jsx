@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
+
 const Task = ({
   task: { _id, description, completed },
   handleDelete,
@@ -34,65 +38,47 @@ const Task = ({
   };
 
   return (
-    <div
-      key={_id}
-      style={{
-        width: "100%",
-        display: "inline-flex",
-      }}
-    >
-      {edit ? (
-        <input
-          style={{
-            width: "70%",
-          }}
+    <div className="p-fluid p-grid">
+      <div className="p-field p-col p-lg-9">
+        <InputText
           value={descriptionInner}
           name="descriptionInner"
           onChange={handleChange}
+          readOnly={!edit}
+          style={{
+            border: edit ? "" : "none",
+            fontWeight: "bold",
+            fontSize: "1.3em",
+          }}
         />
-      ) : (
-        <span
+      </div>
+      <div className="p-col p-lg-1">
+        <Checkbox
+          inputId="binary"
           style={{
-            width: "70%",
+            marginTop: "5px",
           }}
-        >
-          {descriptionInner}
-        </span>
-      )}
-      {edit ? (
-        <input
-          style={{
-            width: "13%",
-          }}
-          type="checkbox"
           checked={completedInner}
           onChange={handleCheckBox}
+          readOnly={!edit}
         />
-      ) : (
-        <span
-          style={{
-            width: "10%",
-          }}
-        >
-          {completedInner ? "Completed" : "Not Completed"}
-        </span>
-      )}
-      <span>
-        <button
-          style={{}}
+      </div>
+      <div className="p-col p-lg-1">
+        <Button
+          icon="pi pi-pencil"
           value={_id}
-          className="btn btn-danger btn-sm"
           onClick={() => handleEditButton(_id)}
-        >
-          Edit Task
-        </button>
-      </span>
-      <span>
+          label={edit ? "Discard" : "Edit"}
+          className="p-button p-button-info"
+          iconPos="right"
+        />
+      </div>
+      <div className="p-col p-lg-1">
         {edit ? (
-          <button
-            style={{}}
+          <Button
+            label="Done"
             value={_id}
-            className="btn btn-danger btn-sm"
+            icon="pi pi-check"
             onClick={() => {
               handleUpdate(descriptionInner, completedInner, _id, token);
               seteditTask({
@@ -100,20 +86,19 @@ const Task = ({
                 edit: !edit,
               });
             }}
-          >
-            Done
-          </button>
+            iconPos="right"
+          />
         ) : (
-          <button
-            style={{}}
+          <Button
+            icon="pi pi-times"
             value={_id}
-            className="btn btn-danger btn-sm"
             onClick={() => handleDelete(_id)}
-          >
-            Delete Task
-          </button>
+            label="Delete"
+            className="p-button p-button-danger"
+            iconPos="right"
+          />
         )}
-      </span>
+      </div>
     </div>
   );
 };

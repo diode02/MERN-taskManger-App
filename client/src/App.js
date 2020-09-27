@@ -4,7 +4,10 @@ import Header from "./components/header/header-com";
 import DashBoard from "./pages/dashboard/dashboard-com";
 import SignInSignUp from "./pages/sign-in-sign-up/sign-in-sign-up.com";
 
-// import "./App.css";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
 
 import TaskRedirectPage from "./pages/taskRedirectPage/taskRedirectPage-com";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import NewTask from "../../components/newTask/newTask-com";
@@ -11,6 +11,7 @@ import {
 const TaskPage = () => {
   const currentUserTasks = useSelector((state) => state.tasks.currentUserTasks);
   const currentUser = useSelector((state) => state.user.currentUser);
+
   const dispatch = useDispatch();
 
   const handleDelete = (taskID) => {
@@ -36,72 +37,31 @@ const TaskPage = () => {
 
   return (
     <div>
-      User Tasks
       <NewTask />
-      <React.Fragment>
-        <div
-          className="div"
-          style={{
-            width: "100%",
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              display: "inline-flex",
-            }}
-          >
-            <span
-              style={{
-                width: "70%",
-                textAlign: "left",
-              }}
-            >
-              Task
-            </span>
-            <span
-              style={{
-                width: "10%",
-                textAlign: "left",
-              }}
-            >
-              Status
-            </span>
-            <span
-              style={{
-                width: "10%",
-                textAlign: "left",
-              }}
-            >
-              Edit
-            </span>
-            <span
-              style={{
-                width: "10%",
-                textAlign: "left",
-              }}
-            >
-              Delete
-            </span>
+      <div>
+        <div className="p-grid">
+          <span className="p-col p-lg-9 p-text-left p-text-uppercase p-text-bold">
+            Tasks
+          </span>
+          <div className="p-col p-lg-1 p-text-left p-text-uppercase p-text-bold">
+            Status
           </div>
-          <div
-            style={{
-              width: "100%",
-            }}
-          >
-            {currentUserTasks.map((task) => (
-              <Task
-                key={task._id}
-                task={task}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-                handleUpdate={handleUpdate}
-                token={currentUser.token}
-              />
-            ))}
-          </div>
+          <div className="p-col p-lg-1"></div>
+          <div className="p-col p-lg-1"></div>
         </div>
-      </React.Fragment>
+        <div>
+          {currentUserTasks.map((task) => (
+            <Task
+              key={task._id}
+              task={task}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              handleUpdate={handleUpdate}
+              token={currentUser.token}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

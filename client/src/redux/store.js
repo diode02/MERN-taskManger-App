@@ -8,6 +8,7 @@ import { persistStore } from "redux-persist";
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleWare = createSagaMiddleWare();
+
 const middleWares = [sagaMiddleWare, logger];
 
 export const store = createStore(

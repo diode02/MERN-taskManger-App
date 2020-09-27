@@ -21,9 +21,12 @@ export const OptionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  font-size: 20px;
+  textdecoration: "none";
 `;
 
 export const OptionLinkContainer = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+  textdecoration: "none";
 `;

@@ -13,7 +13,7 @@ const TaskRedirectPage = ({ match, history }) => {
   useEffect(() => {
     if (currentUser && history.action !== "PUSH")
       dispatch(fetchTasksStart(currentUser.token));
-  });
+  }, []);
   return (
     <div>
       <Route

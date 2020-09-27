@@ -21,7 +21,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/me", auth, async (req, res, next) => {
+router.patch("/", auth, async (req, res, next) => {
   const alllowedUpdates = ["name", "email", "age", "password"];
   const updates = Object.keys(req.body);
   const isvalidOrNot = updates.every((update) =>

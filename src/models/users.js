@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     email: {
       type: String,
@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
       index: true,
       validate(value) {
         if (!validator.isEmail(value)) throw new Error("Email is invalid");
-      }
+      },
     },
     age: {
       type: Number,
@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema(
         if (value < 0) {
           throw new Error("Age must be positie number");
         }
-      }
+      },
     },
     password: {
       type: String,
@@ -42,32 +42,32 @@ const userSchema = mongoose.Schema(
         if (value.toLowerCase().includes("password")) {
           throw new Error("Password can not contain 'passowrd'");
         }
-      }
+      },
     },
     tokens: [
       {
         token: {
           type: String,
-          required: true
-        }
-      }
+          required: true,
+        },
+      },
     ],
     avatar: {
-      type: Buffer
-    }
+      type: Buffer,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
 userSchema.virtual("tasks", {
   ref: "Task",
   localField: "_id",
-  foreignField: "owner"
+  foreignField: "owner",
 });
 
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
   const userObject = this.toObject();
   delete userObject.password;
   delete userObject.tokens;
@@ -75,7 +75,7 @@ userSchema.methods.toJSON = function() {
   return userObject;
 };
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
   const token = jwt.sign(
     { _id: this._id.toString() },
     process.env.JWT_SECRET_KEY
@@ -96,13 +96,13 @@ userSchema.statics.checkCradentials = async (email, password) => {
   return user;
 };
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function (next) {
   if (this.isModified("password"))
     this.password = await bcryptjs.hash(this.password, 8);
   next();
 });
 
-userSchema.pre("remove", async function(next) {
+userSchema.pre("remove", async function (next) {
   await Task.deleteMany({ owner: this._id });
   next();
 });

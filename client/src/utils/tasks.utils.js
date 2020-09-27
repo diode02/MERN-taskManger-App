@@ -18,13 +18,10 @@ export async function deleteTaskAPI({ taskID, token }) {
     })
     .then(
       (response) => {
-        console.log(response);
         return response;
       },
       (error) => {
-        var status = error.response.status;
-        console.log(status);
-        return error;
+        throw error;
       }
     );
   return data;
