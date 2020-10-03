@@ -51,7 +51,7 @@ const NewTask = () => {
 
   return (
     <div className="p-fluid p-formgrid p-grid">
-      <Toast ref={(el) => (toast = el)} />
+      <Toast ref={(el) => (toast = el)} position="bottom-right" />
 
       <div className="p-field p-col-12 p-lg-8 p-md-8 p-sm-12">
         <InputText
