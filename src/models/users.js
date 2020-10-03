@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const Task = require("./tasks");
 require("../mongo/mongod");
 
-//for creating a chema AND SETTTING UP MIDDLE WARE for hashing
+//for creating a schema AND SETTTING UP MIDDLE WARE for hashing
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -23,6 +23,9 @@ const userSchema = mongoose.Schema(
       validate(value) {
         if (!validator.isEmail(value)) throw new Error("Email is invalid");
       },
+    },
+    gender: {
+      type: String,
     },
     age: {
       type: Number,
@@ -71,7 +74,7 @@ userSchema.methods.toJSON = function () {
   const userObject = this.toObject();
   delete userObject.password;
   delete userObject.tokens;
-  // delete userObject.avatar;
+  delete userObject.avatar;
   return userObject;
 };
 

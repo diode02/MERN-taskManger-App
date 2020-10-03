@@ -54,9 +54,9 @@ router.post("/login", async (req, res, next) => {
   try {
     const user = await User.checkCradentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
-    res.status(200).send({ user, token });
+    res.status(200).send({ user, avatar: user.avatar, token });
   } catch (error) {
-    res.status(400).send({ error });
+    res.status(400).send(error);
   }
 });
 
@@ -79,6 +79,7 @@ router.post("/logoutAll", auth, async (req, res) => {
     res.status(500).send();
   }
 });
+
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -91,8 +92,9 @@ const upload = multer({
     cb(undefined, true);
   },
 });
+
 router.post(
-  "/me/avatar",
+  "/avatar",
   auth,
   upload.single("upload"),
   async (req, res) => {
@@ -108,6 +110,7 @@ router.post(
     res.status(200).send();
   },
   (error, req, res, next) => {
+    console.log(error);
     res.status(400).send({ error: error.message });
   }
 );
@@ -122,13 +125,14 @@ router.delete("/me/avatar", auth, async (req, res) => {
 //   res.send(req.user.avatar);
 // });
 
-router.get("/:id/avatar", async (req, res) => {
+router.get("/avatar", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user || !user.avatar) throw new Error();
+    // const user = await User.findById();
+    if (!req.user || !req.user.avatar) throw new Error();
     res.set("Content-Type", "image/png");
-    res.send(user.avatar);
+    res.send(req.user.avatar);
   } catch (error) {
+    console.log(error);
     res.status(404).send();
   }
 });
