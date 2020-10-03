@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
+import { Toast } from "primereact/toast";
 
 import { postTaskStart } from "./../../redux/tasks/tasks.actions";
 const NewTask = () => {
+  let toast;
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
@@ -34,10 +36,23 @@ const NewTask = () => {
       description: "",
       completed: false,
     });
+    toast.show({
+      severity: "success",
+      summary: "Success Message",
+      detail: "New Task Added",
+    });
+  };
+
+  const _handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
   };
 
   return (
     <div className="p-fluid p-formgrid p-grid">
+      <Toast ref={(el) => (toast = el)} />
+
       <div className="p-field p-col-12 p-lg-8 p-md-8 p-sm-12">
         <InputText
           id="in"
@@ -47,6 +62,7 @@ const NewTask = () => {
           placeholder="New task..."
           name="description"
           required={true}
+          onKeyDown={_handleKeyDown}
         />
       </div>
       <div className="p-field-checkbox p-field p-col-12 p-lg-2 p-md-2 p-sm-4">
