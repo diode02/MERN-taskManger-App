@@ -1,8 +1,9 @@
 import React from "react";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as Logo } from "../../assests/trello.svg";
-import { getAvatarAPI } from "../../utils/user.utils";
+import HeaderOverlay from "../headerOverlay/headerOverlay-com";
+import { Toast } from "primereact/toast";
+
 import { signOutStart } from "./../../redux/users/user.actions";
 import {
   HeaderContainer,
@@ -13,35 +14,45 @@ import {
 
 const Header = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  let toast;
   let imgData = "data:image/png;base64,";
   imgData += useSelector((state) => state.user.avatar);
 
+  let items = [
+    {
+      label: "Account",
+      icon: "pi pi-user",
+      url: "/dashboard",
+    },
+    {
+      label: "Signout",
+      icon: "pi pi-sign-out",
+      command: () => {
+        dispatch(signOutStart(currentUser.token));
+        toast.show({
+          severity: "success",
+          summary: "signout",
+          detail: "Signout Successfully",
+          life: 3000,
+        });
+      },
+    },
+  ];
   const dispatch = useDispatch();
   return (
     <HeaderContainer>
       <LogoContainer to="/">
         <Logo />
       </LogoContainer>
+      <Toast
+        ref={(el) => {
+          toast = el;
+        }}
+      ></Toast>
 
       <OptionsContainer>
         {currentUser ? (
-          <OptionLinkContainer
-            style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
-            }}
-            to="/dashboard"
-          >
-            <img
-              src={imgData}
-              alt="avatar of user"
-              style={{
-                borderRadius: "50%",
-                height: "50px",
-              }}
-            ></img>
-          </OptionLinkContainer>
+          <HeaderOverlay items={items} imgData={imgData} />
         ) : (
           <OptionLinkContainer
             style={{
@@ -54,19 +65,7 @@ const Header = () => {
             LOGIN
           </OptionLinkContainer>
         )}
-        {currentUser ? (
-          <OptionLinkContainer
-            style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
-            }}
-            to="/"
-            onClick={() => dispatch(signOutStart(currentUser.token))}
-          >
-            SIGNOUT
-          </OptionLinkContainer>
-        ) : (
+        {currentUser ? null : (
           <OptionLinkContainer
             style={{
               textDecoration: "none",
