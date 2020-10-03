@@ -2,7 +2,8 @@ import UserActionTypes from "./user.types";
 
 const INITIAL_STATE = {
   currentUser: null,
-  error: null,
+  errorMessage: null,
+  avatar: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -35,6 +36,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload,
         error: null,
+      };
+    case UserActionTypes.GET_AVATAR_SUCCESS:
+      return {
+        ...state,
+        avatar: action.payload,
+      };
+    case UserActionTypes.GET_AVATAR_FAILURE:
+      return {
+        ...state,
+        avatar: "not found",
       };
     default:
       return state;

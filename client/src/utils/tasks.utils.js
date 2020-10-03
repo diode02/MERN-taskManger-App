@@ -39,7 +39,7 @@ export async function getTasksAPI(token) {
         return Object.values(response.data);
       },
       (error) => {
-        return error;
+        throw error;
       }
     );
   return data;

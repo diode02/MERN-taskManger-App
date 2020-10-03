@@ -7,6 +7,7 @@ const User = require("../src/models/users");
 var router = express.Router();
 
 router.get("/", auth, async (req, res, next) => {
+  console.log(req.user.avatar);
   res.status(200).send(req.user);
 });
 
@@ -105,7 +106,8 @@ router.post(
       })
       .png()
       .toBuffer();
-    req.user.avatar = buffer;
+    req.user.avatar.data = buffer;
+    req.user.avatar.contentType = "image/png";
     await req.user.save();
     res.status(200).send();
   },
@@ -114,7 +116,7 @@ router.post(
     res.status(400).send({ error: error.message });
   }
 );
-router.delete("/me/avatar", auth, async (req, res) => {
+router.delete("/avatar", auth, async (req, res) => {
   req.user.avatar = undefined;
   await req.user.save();
   res.status(200).send();
@@ -125,12 +127,12 @@ router.delete("/me/avatar", auth, async (req, res) => {
 //   res.send(req.user.avatar);
 // });
 
-router.get("/avatar", auth, async (req, res) => {
+router.get("/avatar", auth, async (req, res, next) => {
   try {
-    // const user = await User.findById();
-    if (!req.user || !req.user.avatar) throw new Error();
+    const user = await User.findById(req.user._id);
+    if (!user || !user.avatar) throw new Error();
     res.set("Content-Type", "image/png");
-    res.send(req.user.avatar);
+    res.send(user.avatar);
   } catch (error) {
     console.log(error);
     res.status(404).send();

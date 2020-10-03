@@ -51,3 +51,18 @@ export const signOutFailure = (error) => ({
   type: UserActionTypes.SIGN_OUT_FAILURE,
   payload: error,
 });
+
+export const getAvatarStart = (token) => ({
+  type: UserActionTypes.GET_AVATAR_START,
+  payload: token,
+});
+
+export const getAvatarSucess = (picture) => ({
+  type: UserActionTypes.GET_AVATAR_SUCCESS,
+  payload: picture,
+});
+
+export const getAvatarFailure = (error) => ({
+  type: UserActionTypes.GET_AVATAR_FAILURE,
+  payload: error,
+});

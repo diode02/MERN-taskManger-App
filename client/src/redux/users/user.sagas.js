@@ -9,9 +9,12 @@ import {
   signOutFailure,
   signInSuccess,
   signInFailure,
+  getAvatarFailure,
+  getAvatarSucess,
 } from "./user.actions";
 import {
   createUserWithEmailAndPassword,
+  getAvatarAPI,
   logOutAsync,
   signInWithEmailAndPassword,
 } from "../../utils/user.utils";
@@ -47,6 +50,19 @@ export function* signinWithEmail({ payload: { email, password } }) {
   }
 }
 
+export function* getAvatar({ payload }) {
+  try {
+    const avatar = yield getAvatarAPI(payload);
+    yield put(getAvatarSucess(avatar));
+  } catch (error) {
+    yield put(getAvatarFailure(error));
+  }
+}
+
+export function* onGetAvatarStart() {
+  yield takeLatest(UserActionTypes.GET_AVATAR_START, getAvatar);
+}
+
 export function* onSignOutStart() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
@@ -63,5 +79,6 @@ export function* userSagas() {
     call(onSignUpStart),
     call(onSignOutStart),
     call(onEmailSignInStart),
+    call(onGetAvatarStart),
   ]);
 }

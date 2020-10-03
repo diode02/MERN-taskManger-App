@@ -1,6 +1,8 @@
 import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as Logo } from "../../assests/trello.svg";
+import { getAvatarAPI } from "../../utils/user.utils";
 import { signOutStart } from "./../../redux/users/user.actions";
 import {
   HeaderContainer,
@@ -11,12 +13,16 @@ import {
 
 const Header = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  let imgData = "data:image/png;base64,";
+  imgData += useSelector((state) => state.user.avatar);
+
   const dispatch = useDispatch();
   return (
     <HeaderContainer>
       <LogoContainer to="/">
         <Logo />
       </LogoContainer>
+
       <OptionsContainer>
         {currentUser ? (
           <OptionLinkContainer
@@ -27,7 +33,14 @@ const Header = () => {
             }}
             to="/dashboard"
           >
-            ACCOUNT
+            <img
+              src={imgData}
+              alt="avatar of user"
+              style={{
+                borderRadius: "50%",
+                height: "50px",
+              }}
+            ></img>
           </OptionLinkContainer>
         ) : (
           <OptionLinkContainer

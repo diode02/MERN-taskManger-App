@@ -28,7 +28,7 @@ export async function logOutAsync(token) {
   };
 
   const data = axios
-    .post(url + "/logout", bodyParameters, config)
+    .post(url + "logout", bodyParameters, config)
     .then((response) => {
       return true;
     })
@@ -51,5 +51,26 @@ export async function signInWithEmailAndPassword(userData) {
     .catch((error) => {
       throw error.message;
     });
+  return data;
+}
+
+export async function getAvatarAPI(token) {
+  const data = await axios
+    .get("/users/avatar", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(
+      (response) => {
+        var binary = "";
+        var bytes = [].slice.call(new Uint8Array(response.data.data.data));
+        bytes.forEach((b) => (binary += String.fromCharCode(b)));
+        return window.btoa(binary);
+      },
+      (error) => {
+        throw error;
+      }
+    );
   return data;
 }
