@@ -1,4 +1,4 @@
-import UserActionTypes from "./user.types";
+import UserActionTypes from './user.types';
 
 export const signInSuccess = (user) => ({
   type: UserActionTypes.SIGNIN_SUCCESS,
@@ -49,5 +49,20 @@ export const signOutSucess = () => ({
 
 export const signOutFailure = (error) => ({
   type: UserActionTypes.SIGN_OUT_FAILURE,
+  payload: error,
+});
+
+export const updateUserStart = (userData) => ({
+  type: UserActionTypes.UPDATE_USER_START,
+  payload: userData,
+});
+
+export const updateUserSuccess = (userData) => ({
+  type: UserActionTypes.UPDATE_USER_SUCCESS,
+  payload: userData,
+});
+
+export const updateUserFailure = (error) => ({
+  type: UserActionTypes.UPDATE_USER_FAILURE,
   payload: error,
 });

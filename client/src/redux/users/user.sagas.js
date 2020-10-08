@@ -1,6 +1,6 @@
-import { takeLatest, put, all, call } from "redux-saga/effects";
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import UserActionTypes from "./user.types";
+import UserActionTypes from './user.types';
 
 import {
   signUpFailure,
@@ -9,12 +9,15 @@ import {
   signOutFailure,
   signInSuccess,
   signInFailure,
-} from "./user.actions";
+  updateUserSuccess,
+  updateUserFailure,
+} from './user.actions';
 import {
   createUserWithEmailAndPassword,
   logOutAsync,
   signInWithEmailAndPassword,
-} from "../../utils/user.utils";
+  updateUserAsync,
+} from '../../utils/user.utils';
 
 export function* signUpSaga({ payload: { email, password, displayName } }) {
   try {
@@ -47,6 +50,15 @@ export function* signinWithEmail({ payload: { email, password } }) {
   }
 }
 
+export function* updateUser({ payload }) {
+  try {
+    const user = yield updateUserAsync(payload);
+    yield put(updateUserSuccess(user));
+  } catch (error) {
+    yield put(updateUserFailure(error));
+  }
+}
+
 export function* onSignOutStart() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
@@ -58,10 +70,15 @@ export function* onEmailSignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGNIN_START, signinWithEmail);
 }
 
+export function* onUpdateUserStart() {
+  yield takeLatest(UserActionTypes.UPDATE_USER_START, updateUser);
+}
+
 export function* userSagas() {
   yield all([
     call(onSignUpStart),
     call(onSignOutStart),
     call(onEmailSignInStart),
+    call(onUpdateUserStart),
   ]);
 }
