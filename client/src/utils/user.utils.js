@@ -74,3 +74,20 @@ export async function getAvatarAPI(token) {
     );
   return data;
 }
+export async function updateUserAsync(payload) {
+  var bodyParameters = {
+    ...payload.data,
+  };
+  var config = {
+    headers: { Authorization: payload.token },
+  };
+  return await axios
+    .patch(url + "updateuser", bodyParameters, config)
+    .then((response) => {
+      response.data.user["token"] = response.data.token;
+      return response.data.user;
+    })
+    .catch((error) => {
+      return error;
+    });
+}

@@ -5,9 +5,11 @@ require("../src/mongo/mongod");
 const auth = require("../src/middlewares/auth");
 const User = require("../src/models/users");
 var router = express.Router();
+const bcryptjs = require("bcryptjs");
 
 router.get("/", auth, async (req, res, next) => {
-  console.log(req.user.avatar);
+  // console.log(req.user.avatar);
+  // router.get('/', auth, async (req, res, next) => {
   res.status(200).send(req.user);
 });
 
@@ -22,9 +24,16 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/", auth, async (req, res, next) => {
+router.patch("/updateuser", auth, async (req, res, next) => {
+  const isMatch = await bcryptjs.compare(
+    req.body.current_password,
+    req.user.password
+  );
+  if (!isMatch) throw new Error("Invalid Password");
+
   const alllowedUpdates = ["name", "email", "age", "password"];
-  const updates = Object.keys(req.body);
+  let updates = Object.keys(req.body);
+  updates = updates.filter((update) => update != "current_password");
   const isvalidOrNot = updates.every((update) =>
     alllowedUpdates.includes(update)
   );
@@ -35,8 +44,9 @@ router.patch("/", auth, async (req, res, next) => {
   try {
     //to force updating to follow our schema and not bypass our middleware we find and then change it here and then pass it from middele ware
     updates.forEach((update) => (req.user[update] = req.body[update]));
-    req.user = await req.user.save();
-    res.send(req.user);
+    const user = await req.user.save();
+    const token = req.token;
+    res.send({ user, token });
   } catch (error) {
     res.status(500).send(error + "");
   }

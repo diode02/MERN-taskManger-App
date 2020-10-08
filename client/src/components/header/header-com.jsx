@@ -1,10 +1,12 @@
 import React from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as Logo } from "../../assests/trello.svg";
 import HeaderOverlay from "../headerOverlay/headerOverlay-com";
 import { Toast } from "primereact/toast";
 
 import { signOutStart } from "./../../redux/users/user.actions";
+
 import {
   HeaderContainer,
   LogoContainer,
@@ -72,7 +74,7 @@ const Header = () => {
               color: "black",
               fontWeight: "bold",
             }}
-            to="/login"
+            to="/signup"
           >
             SIGNUP
           </OptionLinkContainer>

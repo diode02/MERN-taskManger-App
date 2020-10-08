@@ -5,15 +5,16 @@ import "./sign-up.sty.scss";
 import CustomButton from "../custom-button/custom-button.com";
 
 import { signUpStart } from "../../redux/users/user.actions";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const dispatch = useDispatch();
 
   const [userCredentials, setUserCredetials] = useState({
     displayName: "Waqas",
-    email: "waqaskhanws12@gmail.com",
-    password: "khankhan",
-    confirmPassword: "khankhan",
+    email: "gigi@hot.com",
+    password: "12345678",
+    confirmPassword: "12345678",
   });
 
   const { displayName, password, confirmPassword, email } = userCredentials;
@@ -76,6 +77,9 @@ function SignUp() {
         <CustomButton type="submit" value="Signup">
           Sign Up
         </CustomButton>
+        <div className="sign__in">
+          Already have an account? <Link to="/login">Log In</Link>
+        </div>
       </form>
     </div>
   );

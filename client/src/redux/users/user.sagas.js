@@ -11,12 +11,15 @@ import {
   signInFailure,
   getAvatarFailure,
   getAvatarSucess,
+  updateUserSuccess,
+  updateUserFailure,
 } from "./user.actions";
 import {
   createUserWithEmailAndPassword,
   getAvatarAPI,
   logOutAsync,
   signInWithEmailAndPassword,
+  updateUserAsync,
 } from "../../utils/user.utils";
 
 export function* signUpSaga({ payload: { email, password, displayName } }) {
@@ -63,6 +66,15 @@ export function* onGetAvatarStart() {
   yield takeLatest(UserActionTypes.GET_AVATAR_START, getAvatar);
 }
 
+export function* updateUser({ payload }) {
+  try {
+    const user = yield updateUserAsync(payload);
+    yield put(updateUserSuccess(user));
+  } catch (error) {
+    yield put(updateUserFailure(error));
+  }
+}
+
 export function* onSignOutStart() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
@@ -74,11 +86,16 @@ export function* onEmailSignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGNIN_START, signinWithEmail);
 }
 
+export function* onUpdateUserStart() {
+  yield takeLatest(UserActionTypes.UPDATE_USER_START, updateUser);
+}
+
 export function* userSagas() {
   yield all([
     call(onSignUpStart),
     call(onSignOutStart),
     call(onEmailSignInStart),
     call(onGetAvatarStart),
+    call(onUpdateUserStart),
   ]);
 }

@@ -10,6 +10,7 @@ const auth = async (req, res, next) => {
     req.token = token;
     req.user = user;
     next();
+    // console.log("working", token);
   } catch (error) {
     console.log(error);
     res.status(401).send("error: not authonticated");

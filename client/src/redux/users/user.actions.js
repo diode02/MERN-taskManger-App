@@ -66,3 +66,17 @@ export const getAvatarFailure = (error) => ({
   type: UserActionTypes.GET_AVATAR_FAILURE,
   payload: error,
 });
+export const updateUserStart = (userData) => ({
+  type: UserActionTypes.UPDATE_USER_START,
+  payload: userData,
+});
+
+export const updateUserSuccess = (userData) => ({
+  type: UserActionTypes.UPDATE_USER_SUCCESS,
+  payload: userData,
+});
+
+export const updateUserFailure = (error) => ({
+  type: UserActionTypes.UPDATE_USER_FAILURE,
+  payload: error,
+});
