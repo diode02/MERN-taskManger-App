@@ -58,7 +58,7 @@ export async function postTaskAPI(payload) {
       return response;
     })
     .catch((error) => {
-      return error;
+      throw error;
     });
 }
 

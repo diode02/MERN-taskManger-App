@@ -67,6 +67,7 @@ export function* onGetAvatarStart() {
 }
 
 export function* updateUser({ payload }) {
+  console.log(payload);
   try {
     const user = yield updateUserAsync(payload);
     yield put(updateUserSuccess(user));

@@ -33,7 +33,7 @@ export async function logOutAsync(token) {
       return true;
     })
     .catch((error) => {
-      return false;
+      throw false;
     });
   return data;
 }
@@ -88,6 +88,6 @@ export async function updateUserAsync(payload) {
       return response.data.user;
     })
     .catch((error) => {
-      return error;
+      throw error;
     });
 }

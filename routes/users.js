@@ -25,11 +25,15 @@ router.post("/", async (req, res, next) => {
 });
 
 router.patch("/updateuser", auth, async (req, res, next) => {
-  const isMatch = await bcryptjs.compare(
-    req.body.current_password,
-    req.user.password
-  );
-  if (!isMatch) throw new Error("Invalid Password");
+  try {
+    const isMatch = await bcryptjs.compare(
+      req.body.current_password,
+      req.user.password
+    );
+    if (!isMatch) throw new Error("Invalid Password");
+  } catch (error) {
+    return res.status(400).send({ error: "Invalid Password" });
+  }
 
   const alllowedUpdates = ["name", "email", "age", "password"];
   let updates = Object.keys(req.body);

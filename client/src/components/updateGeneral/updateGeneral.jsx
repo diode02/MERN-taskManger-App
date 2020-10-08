@@ -8,7 +8,7 @@ import { Panel } from "primereact/panel";
 
 import { updateUserStart } from "../../redux/users/user.actions";
 
-const UpdateGeneral = ({ field_title }) => {
+const UpdateGeneral = ({ field_title, children }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
 
@@ -17,6 +17,11 @@ const UpdateGeneral = ({ field_title }) => {
     [field_title]: "",
     current_password: "",
   });
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const handleChange = (event) => {
     const { value, name } = event.target;
 
@@ -33,7 +38,9 @@ const UpdateGeneral = ({ field_title }) => {
   return (
     <Panel
       expandIcon="pi pi-pencil"
-      header={`${field_title}: ${currentUser[field_title]}`}
+      header={`${capitalizeFirstLetter(field_title)}: ${
+        currentUser[field_title]
+      }`}
       toggleable
       collapsed={panelCollapsed}
       onToggle={(e) => setPanelCollapsed(e.value)}
@@ -41,11 +48,23 @@ const UpdateGeneral = ({ field_title }) => {
       <div className="p-fluid">
         <div className="p-field p-grid">
           <label htmlFor="firstname4" className="p-col-12 p-md-2">
-            {field_title}
+            {capitalizeFirstLetter(field_title)}
           </label>
           <div className="p-col-12 p-md-10">
+            {/* {children
+              ? React.cloneElement(children, {
+                  dateFormat: "dd/mm/yy",
+
+                  onChange: (e) => {
+                    console.log(e.value);
+                    setData({ ...data, [field_title]: e.value });
+                  },
+                })
+              : "false"} */}
             <InputText
-              placeholder={`Enter new ${field_title}`}
+              placeholder={`Enter New ${capitalizeFirstLetter(
+                field_title
+              )} Here....`}
               id="firstname4"
               name={field_title}
               type={field_title}
@@ -56,12 +75,12 @@ const UpdateGeneral = ({ field_title }) => {
         </div>
         <div className="p-field p-grid">
           <label htmlFor="password4" className="p-col-12 p-md-2">
-            password
+            Password
           </label>
           <div className="p-col-12 p-md-10">
             <InputText
               id="current_password"
-              placeholder="Enter password"
+              placeholder="Enter Password Here..."
               type="password"
               name="current_password"
               value={current_password}

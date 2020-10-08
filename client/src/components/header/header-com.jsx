@@ -39,7 +39,7 @@ const Header = () => {
           severity: "success",
           summary: "signout",
           detail: "Signout Successfully",
-          life: 3000,
+          life: 500,
         });
       },
     },

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import "./test.css";
 import { Redirect } from "react-router";
 import { TabView, TabPanel } from "primereact/tabview";
+import { Calendar } from "primereact/calendar";
+
 import UpdateGeneral from "../../components/updateGeneral/updateGeneral";
 import UpdateSecurity from "../../components/updateSecurity/updateSecurity";
 
@@ -22,12 +24,24 @@ const Dashboard = () => {
           }}
         >
           <UpdateGeneral field_title="name" />
-          <UpdateGeneral field_title="age" />
+          {/* <UpdateGeneral field_title="age">
+            <Calendar
+              readOnlyInput
+              // value={this.state.date}
+              // onChange={(e) => this.setState({ date: e.value })}
+            ></Calendar>
+          </UpdateGeneral> */}
           <UpdateGeneral field_title="email" />
         </div>
       </TabPanel>
       <TabPanel header="Security">
-        <UpdateSecurity />
+        <div
+          style={{
+            display: "flow-root",
+          }}
+        >
+          <UpdateSecurity />
+        </div>
       </TabPanel>
     </TabView>
   );
