@@ -2,6 +2,11 @@
   "name": "task-manager",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "10.19.0",
+    "yarn": "1.22.5",
+    "npm": "6.14.4"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "serverDev": "env-cmd --verbose -e development -r ./config/.env.json nodemon ./bin/www",
