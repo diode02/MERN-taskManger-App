@@ -86,50 +86,6 @@ const NewTask = () => {
       </div>
     </div>
   );
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        {/* <input
-          id="completed"
-          name="completed"
-          checked={completed}
-          onChange={handleComplted}
-          type="checkbox"
-          style={{
-            width: "20%",
-            marginTop: "70px",
-            transform: "scale(2)",
-            padding: "10px",
-          }}
-        /> */}
-
-        <span className="p-field-checkbox" style={{ marginLeft: "40px" }}>
-          <Checkbox
-            inputId="binary"
-            checked={completed}
-            onChange={handleComplted}
-            style={{
-              marginBottom: "7px",
-              marginRight: "10px",
-            }}
-          />
-          <label htmlFor="binary">
-            {completed ? "completed" : "not completed"}
-          </label>
-        </span>
-
-        <Button
-          label="Add"
-          type="submit"
-          className="p-button-lg"
-          style={{
-            padding: "5px 30px",
-          }}
-        />
-      </form>
-    </div>
-  );
 };
 
 export default NewTask;

@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import { Menu } from "primereact/menu";
 import { Button } from "primereact/button";
 
@@ -11,7 +9,7 @@ const HeaderOverlay = ({ items, imgData }) => {
     <div>
       <Button
         type="button"
-        label
+        label=" "
         style={{
           backgroundImage: `url(${imgData})`,
           borderRadius: "50%",

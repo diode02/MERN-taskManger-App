@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as Logo } from "../../assests/trello.svg";
 import HeaderOverlay from "../headerOverlay/headerOverlay-com";
@@ -15,6 +16,7 @@ import {
 } from "./header-sty";
 
 const Header = () => {
+  let history = useHistory();
   const currentUser = useSelector((state) => state.user.currentUser);
   let toast;
   let imgData = "data:image/png;base64,";
@@ -24,7 +26,9 @@ const Header = () => {
     {
       label: "Account",
       icon: "pi pi-user",
-      url: "/dashboard",
+      command: () => {
+        history.push("/dashboard");
+      },
     },
     {
       label: "Signout",
