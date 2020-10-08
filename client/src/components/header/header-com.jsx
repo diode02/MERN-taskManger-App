@@ -1,42 +1,46 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ReactComponent as Logo } from "../../assests/trello.svg";
-import { signOutStart } from "./../../redux/users/user.actions";
+import React from 'react';
+
+import { Dropdown } from 'primereact/dropdown';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { ReactComponent as Logo } from '../../assests/trello.svg';
+import { signOutStart } from './../../redux/users/user.actions';
 import {
   HeaderContainer,
   LogoContainer,
   OptionLinkContainer,
   OptionsContainer,
-} from "./header-sty";
+} from './header-sty';
 
 const Header = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   return (
     <HeaderContainer>
-      <LogoContainer to="/">
+      <LogoContainer to='/'>
         <Logo />
       </LogoContainer>
       <OptionsContainer>
+        <Dropdown>Dropdown</Dropdown>
         {currentUser ? (
           <OptionLinkContainer
             style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
+              textDecoration: 'none',
+              color: 'black',
+              fontWeight: 'bold',
             }}
-            to="/dashboard"
+            to='/dashboard'
           >
             ACCOUNT
           </OptionLinkContainer>
         ) : (
           <OptionLinkContainer
             style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
+              textDecoration: 'none',
+              color: 'black',
+              fontWeight: 'bold',
             }}
-            to="/login"
+            to='/login'
           >
             LOGIN
           </OptionLinkContainer>
@@ -44,11 +48,11 @@ const Header = () => {
         {currentUser ? (
           <OptionLinkContainer
             style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
+              textDecoration: 'none',
+              color: 'black',
+              fontWeight: 'bold',
             }}
-            to="/"
+            to='/'
             onClick={() => dispatch(signOutStart(currentUser.token))}
           >
             SIGNOUT
@@ -56,11 +60,11 @@ const Header = () => {
         ) : (
           <OptionLinkContainer
             style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
+              textDecoration: 'none',
+              color: 'black',
+              fontWeight: 'bold',
             }}
-            to="/login"
+            to='/signup'
           >
             SIGNUP
           </OptionLinkContainer>
