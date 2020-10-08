@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "server": "env-cmd --verbose -e development -r ./config/.env.json nodemon ./bin/www",
+    "serverDev": "env-cmd --verbose -e development -r ./config/.env.json nodemon ./bin/www",
+    "server": "nodemon ./bin/www",
     "client": "cd client && yarn start",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "build": "cd client && yarn run build",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
