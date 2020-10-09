@@ -31,6 +31,16 @@ const NewTask = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (description.trim() === "") {
+      alert("Please enter some task in task description");
+      settask({ ...task, description: "" });
+      // toast.show({
+      //   severity: "warning",
+      //   summary: "No Description",
+      //   detail: "Please enter some",
+      // });
+      return;
+    }
     dispatch(postTaskStart({ task, token: currentUser.token }));
     settask({
       description: "",
@@ -61,7 +71,7 @@ const NewTask = () => {
           onChange={handleChange}
           placeholder="New task..."
           name="description"
-          required={true}
+          required
           onKeyDown={_handleKeyDown}
         />
       </div>

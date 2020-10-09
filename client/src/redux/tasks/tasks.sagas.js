@@ -33,7 +33,6 @@ export function* onFetchTasksStart() {
 
 export function* postTaskStartAsync({ payload }) {
   try {
-    console.log(payload);
     const response = yield postTaskAPI(payload);
     yield put(postTaskSuccess(response.data));
   } catch (error) {

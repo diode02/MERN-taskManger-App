@@ -65,6 +65,7 @@ const UpdateGeneral = ({ field_title, children }) => {
               placeholder={`Enter New ${capitalizeFirstLetter(
                 field_title
               )} Here....`}
+              required
               id="firstname4"
               name={field_title}
               type={field_title}
@@ -80,8 +81,9 @@ const UpdateGeneral = ({ field_title, children }) => {
           <div className="p-col-12 p-md-10">
             <InputText
               id="current_password"
-              placeholder="Enter Password Here..."
+              // placeholder="Enter Password Here..."
               type="password"
+              required={false}
               name="current_password"
               value={current_password}
               onChange={handleChange}
