@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Panel } from "primereact/panel";
+import { Password } from "primereact/password";
 
 import { updateUserStart } from "../../redux/users/user.actions";
 
@@ -66,7 +67,7 @@ const UpdateSecurity = ({}) => {
         <div className="p-field p-grid">
           <label className="p-col-12 p-md-2">New Password</label>
           <div className="p-col-12 p-md-10">
-            <InputText
+            <Password
               id="password"
               placeholder="Enter your new passowrd here...."
               type="password"
@@ -85,6 +86,7 @@ const UpdateSecurity = ({}) => {
               placeholder="Confirm your new passowrd here...."
               type="password"
               name="confirm_password"
+              promptLabel="Enter new password"
               value={confirm_password}
               onChange={handleChange}
               required

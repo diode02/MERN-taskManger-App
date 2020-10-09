@@ -63,7 +63,7 @@ const Task = ({
           readOnly={!edit}
         />
       </div>
-      <div className="p-col p-lg-1 p-md-2 p-sm-3">
+      <div className="p-col p-lg-1 p-md-2 p-sm-2">
         <Button
           icon="pi pi-pencil"
           value={_id}
@@ -73,7 +73,7 @@ const Task = ({
           iconPos="right"
         />
       </div>
-      <div className="p-col p-lg-1 p-md-2 p-sm-3">
+      <div className="p-col p-lg-1 p-md-2 p-sm-2">
         {edit ? (
           <Button
             label="Done"
