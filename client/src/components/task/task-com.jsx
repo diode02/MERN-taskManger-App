@@ -39,7 +39,7 @@ const Task = ({
 
   return (
     <div className="p-fluid p-grid">
-      <div className="p-field p-col p-lg-9">
+      <div className="p-field p-col p-lg-9 p-md-7 p-sm-5">
         <InputText
           value={descriptionInner}
           name="descriptionInner"
@@ -52,7 +52,7 @@ const Task = ({
           }}
         />
       </div>
-      <div className="p-col p-lg-1">
+      <div className="p-col p-lg-1 p-md-1 p-sm-1">
         <Checkbox
           inputId="binary"
           style={{
@@ -63,7 +63,7 @@ const Task = ({
           readOnly={!edit}
         />
       </div>
-      <div className="p-col p-lg-1">
+      <div className="p-col p-lg-1 p-md-2 p-sm-3">
         <Button
           icon="pi pi-pencil"
           value={_id}
@@ -73,7 +73,7 @@ const Task = ({
           iconPos="right"
         />
       </div>
-      <div className="p-col p-lg-1">
+      <div className="p-col p-lg-1 p-md-2 p-sm-3">
         {edit ? (
           <Button
             label="Done"
