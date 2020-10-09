@@ -48,16 +48,18 @@ const UpdateSecurity = ({}) => {
       collapsed={panelCollapsed}
       onToggle={(e) => setPanelCollapsed(e.value)}
     >
-      <div className="p-fluid">
+      <form className="p-fluid" onSubmit={handleClick}>
         <div className="p-field p-grid">
           <label className="p-col-12 p-md-2">Current Password</label>
           <div className="p-col-12 p-md-10">
             <InputText
               id="current_password"
+              placeholder="Enter your old passowrd here...."
               type="password"
               name="current_password"
               value={current_password}
               onChange={handleChange}
+              required
             />
           </div>
         </div>
@@ -66,10 +68,12 @@ const UpdateSecurity = ({}) => {
           <div className="p-col-12 p-md-10">
             <InputText
               id="password"
+              placeholder="Enter your new passowrd here...."
               type="password"
               name="password"
               value={password}
               onChange={handleChange}
+              required
             />
           </div>
         </div>
@@ -78,15 +82,17 @@ const UpdateSecurity = ({}) => {
           <div className="p-col-12 p-md-10">
             <InputText
               id="confirm_password"
+              placeholder="Confirm your new passowrd here...."
               type="password"
               name="confirm_password"
               value={confirm_password}
               onChange={handleChange}
+              required
             />
           </div>
         </div>
-        <Button label="submit" onClick={handleClick} />
-      </div>
+        <Button label="submit" type="submit" />
+      </form>
     </Panel>
   );
 };

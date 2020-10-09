@@ -28,7 +28,8 @@ const UpdateGeneral = ({ field_title, children }) => {
     setData({ ...data, [name]: value });
   };
 
-  const handleClick = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     dispatch(updateUserStart({ data, token: currentUser.token }));
     setData({ [field_title]: "", current_password: "" });
   };
@@ -45,22 +46,12 @@ const UpdateGeneral = ({ field_title, children }) => {
       collapsed={panelCollapsed}
       onToggle={(e) => setPanelCollapsed(e.value)}
     >
-      <div className="p-fluid">
+      <form className="p-fluid" onSubmit={handleSubmit}>
         <div className="p-field p-grid">
           <label htmlFor="firstname4" className="p-col-12 p-md-2">
             {capitalizeFirstLetter(field_title)}
           </label>
           <div className="p-col-12 p-md-10">
-            {/* {children
-              ? React.cloneElement(children, {
-                  dateFormat: "dd/mm/yy",
-
-                  onChange: (e) => {
-                    console.log(e.value);
-                    setData({ ...data, [field_title]: e.value });
-                  },
-                })
-              : "false"} */}
             <InputText
               placeholder={`Enter New ${capitalizeFirstLetter(
                 field_title
@@ -81,17 +72,17 @@ const UpdateGeneral = ({ field_title, children }) => {
           <div className="p-col-12 p-md-10">
             <InputText
               id="current_password"
-              // placeholder="Enter Password Here..."
+              placeholder="Enter Password Here..."
               type="password"
-              required={false}
+              required
               name="current_password"
               value={current_password}
               onChange={handleChange}
             />
           </div>
         </div>
-        <Button label="submit" onClick={handleClick} />
-      </div>
+        <Button label="submit" type="submit" />
+      </form>
     </Panel>
   );
 };
