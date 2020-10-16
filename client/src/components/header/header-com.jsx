@@ -63,7 +63,7 @@ const Header = () => {
           <OptionLinkContainer
             style={{
               textDecoration: "none",
-              color: "black",
+              color: "white",
               fontWeight: "bold",
             }}
             to="/login"
@@ -75,8 +75,8 @@ const Header = () => {
           <OptionLinkContainer
             style={{
               textDecoration: "none",
-              color: "black",
               fontWeight: "bold",
+              color: "white",
             }}
             to="/signup"
           >
