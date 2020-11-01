@@ -11,10 +11,10 @@ function SignUp() {
   const dispatch = useDispatch();
 
   const [userCredentials, setUserCredetials] = useState({
-    displayName: "Waqas",
-    email: "gigi@hot.com",
-    password: "12345678",
-    confirmPassword: "12345678",
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const { displayName, password, confirmPassword, email } = userCredentials;
